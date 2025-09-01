@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Profit Simulator - VendorAI</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600&display=swap" rel="stylesheet">
+    <script type="module" src="{{ url_for('static', filename='script.js') }}"></script>
+  </head>
+  <body>
+    <!-- Animated Background -->
+    <div class="bg-animation">
+      <div class="floating-particles"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="nav-futuristic">
+      <div class="nav-brand">
+        <i class="fas fa-robot"></i>
+        <span>VendorAI</span>
+      </div>
+      <div class="nav-links">
+        <a href="/" class="nav-link">
+          <i class="fas fa-home"></i>
+          <span>Dashboard</span>
+        </a>
+        <a href="/trends.html" class="nav-link">
+          <i class="fas fa-chart-line"></i>
+          <span>Trends</span>
+        </a>
+        <a href="/simulator.html" aria-current="page" class="nav-link active">
+          <i class="fas fa-calculator"></i>
+          <span>Simulator</span>
+        </a>
+        <a href="/map.html" class="nav-link">
+          <i class="fas fa-map-marked-alt"></i>
+          <span>Hotspots</span>
+        </a>
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-dashboard">
+      <section class="page-header">
+        <h1 class="page-title">
+          <i class="fas fa-calculator"></i>
+          <span class="gradient-text">Profit Simulator</span>
+        </h1>
+        <p class="page-subtitle">Calculate your potential earnings with interactive business modeling</p>
+      </section>
+
+      <!-- Simulator Interface -->
+      <section class="simulator-interface">
+        <div class="simulator-grid">
+          <!-- Input Panel -->
+          <div class="simulator-panel input-panel">
+            <h3><i class="fas fa-sliders-h"></i> Business Parameters</h3>
+            
+            <div class="input-group">
+              <label for="businessType">Business Type</label>
+              <select id="businessType">
+                <option value="food">Food & Beverages</option>
+                <option value="accessories">Mobile Accessories</option>
+                <option value="clothing">Clothing & Fashion</option>
+                <option value="electronics">Electronics</option>
+                <option value="books">Books & Stationery</option>
+              </select>
+            </div>
+
+            <div class="input-group">
+              <label for="location">Location Type</label>
+              <select id="location">
+                <option value="high-traffic">High Traffic Area</option>
+                <option value="medium-traffic">Medium Traffic Area</option>
+                <option value="low-traffic">Low Traffic Area</option>
+                <option value="event-based">Event-Based Location</option>
+              </select>
+            </div>
+
+            <div class="input-group">
+              <label for="dailyCustomers">Daily Customers: <span id="customersValue">50</span></label>
+              <input type="range" id="dailyCustomers" min="10" max="200" value="50" class="slider">
+            </div>
+
+            <div class="input-group">
+              <label for="avgPrice">Average Price per Item: ₹<span id="priceValue">25</span></label>
+              <input type="range" id="avgPrice" min="5" max="500" value="25" class="slider">
+            </div>
+
+            <div class="input-group">
+              <label for="operatingHours">Operating Hours: <span id="hoursValue">8</span> hrs</label>
+              <input type="range" id="operatingHours" min="4" max="16" value="8" class="slider">
+            </div>
+
+            <div class="input-group">
+              <label for="costPercentage">Cost Percentage: <span id="costValue">40</span>%</label>
+              <input type="range" id="costPercentage" min="20" max="80" value="40" class="slider">
+            </div>
+          </div>
+
+          <!-- Results Panel -->
+          <div class="simulator-panel results-panel">
+            <h3><i class="fas fa-chart-bar"></i> Profit Analysis</h3>
+            
+            <div class="results-grid">
+              <div class="result-card">
+                <div class="result-icon">💰</div>
+                <div class="result-info">
+                  <span class="result-label">Daily Revenue</span>
+                  <span class="result-value" id="dailyRevenue">₹1,250</span>
+                </div>
+              </div>
+
+              <div class="result-card">
+                <div class="result-icon">📊</div>
+                <div class="result-info">
+                  <span class="result-label">Daily Profit</span>
+                  <span class="result-value" id="dailyProfit">₹750</span>
+                </div>
+              </div>
+
+              <div class="result-card">
+                <div class="result-icon">📅</div>
+                <div class="result-info">
+                  <span class="result-label">Monthly Profit</span>
+                  <span class="result-value" id="monthlyProfit">₹22,500</span>
+                </div>
+              </div>
+
+              <div class="result-card">
+                <div class="result-icon">🎯</div>
+                <div class="result-info">
+                  <span class="result-label">ROI Timeline</span>
+                  <span class="result-value" id="roiTimeline">2.5 months</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Profit Chart -->
+            <div class="profit-chart">
+              <h4>Monthly Projection</h4>
+              <div class="chart-container">
+                <div class="chart-bars" id="profitChart">
+                  <!-- Chart bars will be generated by JavaScript -->
+                </div>
+              </div>
+            </div>
+
+            <!-- Recommendations -->
+            <div class="recommendations">
+              <h4><i class="fas fa-lightbulb"></i> AI Recommendations</h4>
+              <div id="aiRecommendations">
+                <!-- Recommendations will be populated by JavaScript -->
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="simulator-actions">
+          <button class="btn-primary" id="generateReport">
+            <i class="fas fa-file-pdf"></i>
+            Generate Business Plan PDF
+          </button>
+          <button class="btn-secondary" id="saveSimulation">
+            <i class="fas fa-save"></i>
+            Save Simulation
+          </button>
+          <button class="btn-secondary" id="shareResults">
+            <i class="fas fa-share"></i>
+            Share Results
+          </button>
+        </div>
+      </section>
+    </main>
+
+    <script>
+      // Profit Simulator Logic
+      class ProfitSimulator {
+        constructor() {
+          this.businessMultipliers = {
+            'food': 1.2,
+            'accessories': 1.0,
+            'clothing': 0.9,
+            'electronics': 1.1,
+            'books': 0.8
+          };
+
+          this.locationMultipliers = {
+            'high-traffic': 1.5,
+            'medium-traffic': 1.0,
+            'low-traffic': 0.7,
+            'event-based': 1.8
+          };
+
+          this.init();
+        }
+
+        init() {
+          this.setupEventListeners();
+          this.updateCalculations();
+        }
+
+        setupEventListeners() {
+          const inputs = ['businessType', 'location', 'dailyCustomers', 'avgPrice', 'operatingHours', 'costPercentage'];
+          
+          inputs.forEach(id => {
+            const element = document.getElementById(id);
+            if (element) {
+              element.addEventListener('input', () => this.updateCalculations());
+              element.addEventListener('change', () => this.updateCalculations());
+            }
+          });
+
+          // Update slider value displays
+          document.getElementById('dailyCustomers')?.addEventListener('input', (e) => {
+            document.getElementById('customersValue').textContent = e.target.value;
+          });
+
+          document.getElementById('avgPrice')?.addEventListener('input', (e) => {
+            document.getElementById('priceValue').textContent = e.target.value;
+          });
+
+          document.getElementById('operatingHours')?.addEventListener('input', (e) => {
+            document.getElementById('hoursValue').textContent = e.target.value;
+          });
+
+          document.getElementById('costPercentage')?.addEventListener('input', (e) => {
+            document.getElementById('costValue').textContent = e.target.value;
+          });
+
+          // Action buttons
+          document.getElementById('generateReport')?.addEventListener('click', () => this.generateReport());
+          document.getElementById('saveSimulation')?.addEventListener('click', () => this.saveSimulation());
+          document.getElementById('shareResults')?.addEventListener('click', () => this.shareResults());
+        }
+
+        updateCalculations() {
+          const businessType = document.getElementById('businessType')?.value || 'food';
+          const location = document.getElementById('location')?.value || 'medium-traffic';
+          const dailyCustomers = parseInt(document.getElementById('dailyCustomers')?.value || 50);
+          const avgPrice = parseInt(document.getElementById('avgPrice')?.value || 25);
+          const operatingHours = parseInt(document.getElementById('operatingHours')?.value || 8);
+          const costPercentage = parseInt(document.getElementById('costPercentage')?.value || 40);
+
+          // Calculate base revenue
+          let dailyRevenue = dailyCustomers * avgPrice;
+          
+          // Apply multipliers
+          dailyRevenue *= this.businessMultipliers[businessType] || 1;
+          dailyRevenue *= this.locationMultipliers[location] || 1;
+          
+          // Apply operating hours factor
+          const hoursMultiplier = Math.min(operatingHours / 8, 1.5);
+          dailyRevenue *= hoursMultiplier;
+
+          // Calculate profit
+          const dailyProfit = dailyRevenue * (1 - costPercentage / 100);
+          const monthlyProfit = dailyProfit * 30;
+
+          // Calculate ROI timeline (assuming initial investment)
+          const initialInvestment = this.getInitialInvestment(businessType);
+          const roiMonths = initialInvestment / dailyProfit * 30;
+
+          // Update display
+          this.updateDisplay({
+            dailyRevenue: Math.round(dailyRevenue),
+            dailyProfit: Math.round(dailyProfit),
+            monthlyProfit: Math.round(monthlyProfit),
+            roiTimeline: roiMonths.toFixed(1)
+          });
+
+          // Update chart and recommendations
+          this.updateChart(dailyProfit);
+          this.updateRecommendations(businessType, location, dailyProfit);
+        }
+
+        getInitialInvestment(businessType) {
+          const investments = {
+            'food': 15000,
+            'accessories': 8000,
+            'clothing': 12000,
+            'electronics': 20000,
+            'books': 5000
+          };
+          return investments[businessType] || 10000;
+        }
+
+        updateDisplay(results) {
+          document.getElementById('dailyRevenue').textContent = `₹${results.dailyRevenue.toLocaleString()}`;
+          document.getElementById('dailyProfit').textContent = `₹${results.dailyProfit.toLocaleString()}`;
+          document.getElementById('monthlyProfit').textContent = `₹${results.monthlyProfit.toLocaleString()}`;
+          document.getElementById('roiTimeline').textContent = `${results.roiTimeline} months`;
+        }
+
+        updateChart(dailyProfit) {
+          const chartContainer = document.getElementById('profitChart');
+          if (!chartContainer) return;
+
+          const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'];
+          const monthlyProfits = months.map((_, index) => {
+            // Simulate growth over time
+            return dailyProfit * 30 * (1 + index * 0.05);
+          });
+
+          const maxProfit = Math.max(...monthlyProfits);
+          
+          chartContainer.innerHTML = months.map((month, index) => {
+            const height = (monthlyProfits[index] / maxProfit) * 100;
+            return `
+              <div class="chart-bar">
+                <div class="bar-fill" style="height: ${height}%"></div>
+                <span class="bar-label">${month}</span>
+                <span class="bar-value">₹${Math.round(monthlyProfits[index] / 1000)}K</span>
+              </div>
+            `;
+          }).join('');
+        }
+
+        updateRecommendations(businessType, location, dailyProfit) {
+          const container = document.getElementById('aiRecommendations');
+          if (!container) return;
+
+          let recommendations = [];
+
+          if (dailyProfit < 500) {
+            recommendations.push("💡 Consider increasing your product variety to attract more customers");
+            recommendations.push("📍 Look for higher traffic locations during peak hours");
+          } else if (dailyProfit < 1000) {
+            recommendations.push("🚀 Great start! Consider expanding operating hours during weekends");
+            recommendations.push("🎯 Focus on customer retention with loyalty programs");
+          } else {
+            recommendations.push("🏆 Excellent profit potential! Consider scaling to multiple locations");
+            recommendations.push("💼 Look into hiring help to expand your business capacity");
+          }
+
+          // Business-specific recommendations
+          if (businessType === 'food') {
+            recommendations.push("🍽️ Food businesses: Focus on hygiene and consistent quality");
+          } else if (businessType === 'accessories') {
+            recommendations.push("📱 Tech accessories: Stay updated with latest phone models");
+          }
+
+          container.innerHTML = recommendations.map(rec => 
+            `<div class="recommendation-item">${rec}</div>`
+          ).join('');
+        }
+
+        generateReport() {
+          // Simulate PDF generation
+          const notification = document.createElement('div');
+          notification.className = 'notification notification-success';
+          notification.style.cssText = `
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            padding: var(--space-md);
+            border-radius: var(--radius-md);
+            border-left: 4px solid var(--accent-green);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            z-index: 3000;
+          `;
+          notification.textContent = '📄 Business plan PDF generated successfully!';
+          document.body.appendChild(notification);
+
+          setTimeout(() => {
+            document.body.removeChild(notification);
+          }, 3000);
+        }
+
+        saveSimulation() {
+          // Save to localStorage
+          const simulationData = {
+            businessType: document.getElementById('businessType')?.value,
+            location: document.getElementById('location')?.value,
+            dailyCustomers: document.getElementById('dailyCustomers')?.value,
+            avgPrice: document.getElementById('avgPrice')?.value,
+            operatingHours: document.getElementById('operatingHours')?.value,
+            costPercentage: document.getElementById('costPercentage')?.value,
+            timestamp: new Date().toISOString()
+          };
+
+          localStorage.setItem('vendorAI_simulation', JSON.stringify(simulationData));
+          
+          const notification = document.createElement('div');
+          notification.className = 'notification notification-info';
+          notification.style.cssText = `
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            padding: var(--space-md);
+            border-radius: var(--radius-md);
+            border-left: 4px solid var(--primary-cyan);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            z-index: 3000;
+          `;
+          notification.textContent = '💾 Simulation saved successfully!';
+          document.body.appendChild(notification);
+
+          setTimeout(() => {
+            document.body.removeChild(notification);
+          }, 3000);
+        }
+
+        shareResults() {
+          if (navigator.share) {
+            navigator.share({
+              title: 'VendorAI Profit Simulation',
+              text: 'Check out my business profit simulation results!',
+              url: window.location.href
+            });
+          } else {
+            // Fallback: copy to clipboard
+            const url = window.location.href;
+            navigator.clipboard.writeText(url).then(() => {
+              const notification = document.createElement('div');
+              notification.className = 'notification notification-info';
+              notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: var(--bg-secondary);
+                color: var(--text-primary);
+                padding: var(--space-md);
+                border-radius: var(--radius-md);
+                border-left: 4px solid var(--primary-cyan);
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+                z-index: 3000;
+              `;
+              notification.textContent = '🔗 Link copied to clipboard!';
+              document.body.appendChild(notification);
+
+              setTimeout(() => {
+                document.body.removeChild(notification);
+              }, 3000);
+            });
+          }
+        }
+      }
+
+      // Initialize simulator when page loads
+      document.addEventListener('DOMContentLoaded', () => {
+        new ProfitSimulator();
+      });
+    </script>
+
+    <style>
+      /* Simulator-specific styles */
+      .simulator-interface {
+        margin-top: var(--space-xl);
+      }
+
+      .simulator-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: var(--space-xl);
+        margin-bottom: var(--space-xl);
+      }
+
+      .simulator-panel {
+        background: var(--bg-glass);
+        backdrop-filter: blur(20px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: var(--radius-lg);
+        padding: var(--space-lg);
+      }
+
+      .simulator-panel h3 {
+        display: flex;
+        align-items: center;
+        gap: var(--space-xs);
+        font-family: 'Orbitron', monospace;
+        font-size: 1.3rem;
+        margin-bottom: var(--space-lg);
+        color: var(--primary-cyan);
+      }
+
+      .input-group {
+        margin-bottom: var(--space-md);
+      }
+
+      .input-group label {
+        display: block;
+        margin-bottom: var(--space-xs);
+        font-weight: 600;
+        color: var(--text-secondary);
+      }
+
+      .input-group select {
+        width: 100%;
+        background: var(--bg-tertiary);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: var(--radius-sm);
+        padding: var(--space-sm);
+        color: var(--text-primary);
+        font-size: 1rem;
+      }
+
+      .slider {
+        width: 100%;
+        height: 6px;
+        border-radius: 3px;
+        background: var(--bg-tertiary);
+        outline: none;
+        -webkit-appearance: none;
+      }
+
+      .slider::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background: var(--gradient-primary);
+        cursor: pointer;
+        box-shadow: var(--glow-cyan);
+      }
+
+      .slider::-moz-range-thumb {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background: var(--gradient-primary);
+        cursor: pointer;
+        border: none;
+        box-shadow: var(--glow-cyan);
+      }
+
+      .results-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: var(--space-md);
+        margin-bottom: var(--space-lg);
+      }
+
+      .result-card {
+        background: var(--bg-tertiary);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: var(--radius-md);
+        padding: var(--space-md);
+        display: flex;
+        align-items: center;
+        gap: var(--space-sm);
+      }
+
+      .result-icon {
+        font-size: 2rem;
+      }
+
+      .result-info {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .result-label {
+        font-size: 0.9rem;
+        color: var(--text-secondary);
+      }
+
+      .result-value {
+        font-size: 1.2rem;
+        font-weight: 700;
+        color: var(--primary-cyan);
+      }
+
+      .profit-chart {
+        margin-bottom: var(--space-lg);
+      }
+
+      .profit-chart h4 {
+        margin-bottom: var(--space-md);
+        color: var(--text-secondary);
+      }
+
+      .chart-container {
+        background: var(--bg-tertiary);
+        border-radius: var(--radius-md);
+        padding: var(--space-md);
+        height: 200px;
+        display: flex;
+        align-items: end;
+      }
+
+      .chart-bars {
+        display: flex;
+        gap: var(--space-sm);
+        width: 100%;
+        height: 100%;
+        align-items: end;
+      }
+
+      .chart-bar {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        height: 100%;
+      }
+
+      .bar-fill {
+        width: 100%;
+        background: var(--gradient-primary);
+        border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+        min-height: 10px;
+        transition: height 0.3s ease;
+      }
+
+      .bar-label {
+        font-size: 0.8rem;
+        color: var(--text-secondary);
+        margin-top: var(--space-xs);
+      }
+
+      .bar-value {
+        font-size: 0.7rem;
+        color: var(--primary-cyan);
+        font-weight: 600;
+      }
+
+      .recommendations h4 {
+        margin-bottom: var(--space-md);
+        color: var(--text-secondary);
+      }
+
+      .recommendation-item {
+        background: var(--bg-tertiary);
+        border-left: 3px solid var(--primary-cyan);
+        padding: var(--space-sm);
+        margin-bottom: var(--space-xs);
+        border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+        font-size: 0.9rem;
+      }
+
+      .simulator-actions {
+        display: flex;
+        gap: var(--space-md);
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+
+      .page-header {
+        text-align: center;
+        margin-bottom: var(--space-xl);
+      }
+
+      .page-title {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: var(--space-sm);
+        font-family: 'Orbitron', monospace;
+        font-size: 3rem;
+        font-weight: 900;
+        margin-bottom: var(--space-md);
+      }
+
+      .page-subtitle {
+        font-size: 1.2rem;
+        color: var(--text-secondary);
+        max-width: 600px;
+        margin: 0 auto;
+      }
+
+      @media (max-width: 768px) {
+        .simulator-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .results-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .simulator-actions {
+          flex-direction: column;
+          align-items: center;
+        }
+
+        .page-title {
+          font-size: 2rem;
+        }
+      }
+    </style>
+  </body>
+</html>

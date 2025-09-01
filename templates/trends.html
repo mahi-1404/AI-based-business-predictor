@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Market Trends - VendorAI</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600&display=swap" rel="stylesheet">
+    <script type="module" src="{{ url_for('static', filename='script.js') }}"></script>
+  </head>
+  <body>
+    <!-- Animated Background -->
+    <div class="bg-animation">
+      <div class="floating-particles"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="nav-futuristic">
+      <div class="nav-brand">
+        <i class="fas fa-robot"></i>
+        <span>VendorAI</span>
+      </div>
+      <div class="nav-links">
+        <a href="/" class="nav-link">
+          <i class="fas fa-home"></i>
+          <span>Dashboard</span>
+        </a>
+        <a href="/trends.html" aria-current="page" class="nav-link active">
+          <i class="fas fa-chart-line"></i>
+          <span>Trends</span>
+        </a>
+        <a href="/simulator.html" class="nav-link">
+          <i class="fas fa-calculator"></i>
+          <span>Simulator</span>
+        </a>
+        <a href="/map.html" class="nav-link">
+          <i class="fas fa-map-marked-alt"></i>
+          <span>Hotspots</span>
+        </a>
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-dashboard">
+      <section class="page-header">
+        <h1 class="page-title">
+          <i class="fas fa-chart-line"></i>
+          <span class="gradient-text">Market Trends</span>
+        </h1>
+        <p class="page-subtitle">Real-time insights and predictions for street vendor opportunities</p>
+      </section>
+
+      <!-- Trend Analytics Dashboard -->
+      <section class="analytics-dashboard">
+        <div class="analytics-grid">
+          <div class="analytics-card">
+            <div class="card-header">
+              <h3><i class="fas fa-fire"></i> Hot Categories</h3>
+            </div>
+            <div class="card-content">
+              <div class="category-item">
+                <span class="category-name">Sports Merchandise</span>
+                <div class="category-bar">
+                  <div class="category-fill" style="width: 85%"></div>
+                </div>
+                <span class="category-value">85%</span>
+              </div>
+              <div class="category-item">
+                <span class="category-name">Monsoon Essentials</span>
+                <div class="category-bar">
+                  <div class="category-fill" style="width: 72%"></div>
+                </div>
+                <span class="category-value">72%</span>
+              </div>
+              <div class="category-item">
+                <span class="category-name">Health Products</span>
+                <div class="category-bar">
+                  <div class="category-fill" style="width: 68%"></div>
+                </div>
+                <span class="category-value">68%</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="analytics-card">
+            <div class="card-header">
+              <h3><i class="fas fa-clock"></i> Peak Hours</h3>
+            </div>
+            <div class="card-content">
+              <div class="time-chart">
+                <div class="time-bar" style="height: 60%"><span>8AM</span></div>
+                <div class="time-bar" style="height: 40%"><span>10AM</span></div>
+                <div class="time-bar" style="height: 90%"><span>12PM</span></div>
+                <div class="time-bar" style="height: 85%"><span>2PM</span></div>
+                <div class="time-bar" style="height: 30%"><span>4PM</span></div>
+                <div class="time-bar" style="height: 95%"><span>6PM</span></div>
+                <div class="time-bar" style="height: 70%"><span>8PM</span></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="analytics-card">
+            <div class="card-header">
+              <h3><i class="fas fa-map-marker-alt"></i> Top Locations</h3>
+            </div>
+            <div class="card-content">
+              <div class="location-list">
+                <div class="location-item">
+                  <span class="location-name">Brigade Road</span>
+                  <span class="location-score">9.2</span>
+                </div>
+                <div class="location-item">
+                  <span class="location-name">Commercial Street</span>
+                  <span class="location-score">8.8</span>
+                </div>
+                <div class="location-item">
+                  <span class="location-name">MG Road</span>
+                  <span class="location-score">8.5</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Detailed Trends -->
+      <section class="detailed-trends">
+        <div class="section-header">
+          <h2>
+            <i class="fas fa-trending-up"></i>
+            Detailed Market Analysis
+          </h2>
+        </div>
+        
+        <div class="trends-detailed-grid">
+          <div class="trend-detail-card">
+            <div class="trend-icon">🏏</div>
+            <h3>Cricket Merchandise Boom</h3>
+            <p>With the recent World Cup victory, cricket-related merchandise is experiencing unprecedented demand.</p>
+            <div class="trend-metrics">
+              <div class="metric">
+                <span class="metric-label">Growth</span>
+                <span class="metric-value">+185%</span>
+              </div>
+              <div class="metric">
+                <span class="metric-label">Duration</span>
+                <span class="metric-value">2-3 weeks</span>
+              </div>
+              <div class="metric">
+                <span class="metric-label">Investment</span>
+                <span class="metric-value">₹5,000-15,000</span>
+              </div>
+            </div>
+            <button class="trend-action-btn">Get Started</button>
+          </div>
+
+          <div class="trend-detail-card">
+            <div class="trend-icon">🌧️</div>
+            <h3>Monsoon Essentials</h3>
+            <p>Rainy season creates high demand for umbrellas, raincoats, and hot beverages.</p>
+            <div class="trend-metrics">
+              <div class="metric">
+                <span class="metric-label">Growth</span>
+                <span class="metric-value">+120%</span>
+              </div>
+              <div class="metric">
+                <span class="metric-label">Duration</span>
+                <span class="metric-value">3-4 months</span>
+              </div>
+              <div class="metric">
+                <span class="metric-label">Investment</span>
+                <span class="metric-value">₹3,000-10,000</span>
+              </div>
+            </div>
+            <button class="trend-action-btn">Get Started</button>
+          </div>
+
+          <div class="trend-detail-card">
+            <div class="trend-icon">🥤</div>
+            <h3>Health & Wellness</h3>
+            <p>Growing health consciousness drives demand for fresh juices and organic snacks.</p>
+            <div class="trend-metrics">
+              <div class="metric">
+                <span class="metric-label">Growth</span>
+                <span class="metric-value">+75%</span>
+              </div>
+              <div class="metric">
+                <span class="metric-label">Duration</span>
+                <span class="metric-value">Year-round</span>
+              </div>
+              <div class="metric">
+                <span class="metric-label">Investment</span>
+                <span class="metric-value">₹8,000-25,000</span>
+              </div>
+            </div>
+            <button class="trend-action-btn">Get Started</button>
+          </div>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

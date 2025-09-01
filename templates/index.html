@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>VendorAI - Smart Street Business Platform</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600&display=swap" rel="stylesheet">
+    <script type="module" src="{{ url_for('static', filename='script.js') }}"></script>
+  </head>
+  <body>
+    <!-- Animated Background -->
+    <div class="bg-animation">
+      <div class="floating-particles"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="nav-futuristic">
+      <div class="nav-brand">
+        <i class="fas fa-robot"></i>
+        <span>VendorAI</span>
+      </div>
+      <div class="nav-links">
+        <a href="/" aria-current="page" class="nav-link active">
+            <i class="fas fa-home"></i>
+          <span>Dashboard</span>
+        </a>
+        <a href="/trends.html" class="nav-link">
+          <i class="fas fa-chart-line"></i>
+          <span>Trends</span>
+        </a>
+        <a href="/simulator.html" class="nav-link">
+          <i class="fas fa-calculator"></i>
+          <span>Simulator</span>
+        </a>
+        <a href="/map.html" class="nav-link">
+          <i class="fas fa-map-marked-alt"></i>
+          <span>Hotspots</span>
+        </a>
+      </div>
+      <div class="nav-actions">
+        <button class="btn-location" id="detectLocation">
+          <i class="fas fa-location-arrow"></i>
+        </button>
+        <div class="language-switcher">
+          <select id="languageSelect">
+            <option value="en">🇺🇸 EN</option>
+            <option value="hi">🇮🇳 हिं</option>
+            <option value="kn">🇮🇳 ಕನ್ನಡ</option>
+            <option value="ta">🇮🇳 தமிழ்</option>
+          </select>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-dashboard">
+      <!-- Hero Section -->
+      <section class="hero-section">
+        <div class="hero-content">
+          <h1 class="hero-title">
+            <span class="gradient-text">AI-Powered</span>
+            <br>Street Vendor Intelligence
+          </h1>
+          <p class="hero-subtitle">
+            Discover trending opportunities, optimize your business location, and maximize profits with cutting-edge AI insights.
+             </p>
+          <div class="hero-actions">
+            <button class="btn-primary" id="startAnalysis">
+              <i class="fas fa-rocket"></i>
+              Start Analysis
+            </button>
+            <button class="btn-secondary" id="openChatbot">
+              <i class="fas fa-comments"></i>
+              AI Assistant
+            </button>
+          </div>
+        </div>
+        <div class="hero-visual">
+          <div class="hologram-container">
+            <div class="hologram-ring"></div>
+            <div class="hologram-core">
+              <i class="fas fa-store"></i>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Real-Time Trends Feed -->
+      <section class="trends-feed">
+        <div class="section-header">
+          <h2>
+            <i class="fas fa-fire"></i>
+            Live Market Trends
+          </h2>
+          <div class="trend-indicator">
+            <span class="pulse-dot"></span>
+            <span>Live</span>
+          </div>
+        </div>
+        <div class="trends-container" id="trendsContainer">
+            </div>
+      </section>
+
+      <!-- Quick Actions Grid -->
+      <section class="quick-actions">
+        <div class="section-header">
+          <h2>
+            <i class="fas fa-bolt"></i>
+            Quick Actions
+          </h2>
+        </div>
+        <div class="actions-grid">
+          <div class="action-card" data-action="location">
+            <div class="card-icon">
+              <i class="fas fa-map-marker-alt"></i>
+            </div>
+            <h3>Find Best Location</h3>
+            <p>AI-powered location analysis for maximum footfall</p>
+            <div class="card-glow"></div>
+          </div>
+          
+          <div class="action-card" data-action="profit">
+            <div class="card-icon">
+              <i class="fas fa-chart-bar"></i>
+            </div>
+            <h3>Profit Simulator</h3>
+            <p>Calculate potential earnings with interactive tools</p>
+            
+            <div class="card-glow"></div>
+          </div>
+          
+          <div class="action-card" data-action="trends">
+            <div class="card-icon">
+              <i class="fas fa-trending-up"></i>
+            </div>
+            <h3>Market Insights</h3>
+            <p>Real-time data on what's selling hot today</p>
+            <div class="card-glow"></div>
+          </div>
+          
+          <div class="action-card" data-action="partner">
+            <div class="card-icon">
+              <i class="fas fa-handshake"></i>
+            </div>
+            <h3>Find Partners</h3>
+            <p>Connect with other vendors for collaboration</p>
+            <div class="card-glow"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- AI Chatbot Interface -->
+      <div class="chatbot-container" id="chatbotContainer">
+        <div class="chatbot-header">
+          <div class="chatbot-avatar">
+            <i class="fas fa-robot"></i>
+          </div>
+                      <h3>VendorAI Assistant</h3>
+            <span class="status-online">Online</span>
+          </div>
+          <button class="chatbot-close" id="closeChatbot">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+        <div class="chatbot-messages" id="chatbotMessages">
+          <div class="message bot-message">
+            <div class="message-avatar">
+              <i class="fas fa-robot"></i>
+            </div>
+            <div class="message-content">
+              <p>Hello! I'm your AI business assistant. How can I help you grow your street vendor business today?</p>
+            </div>
+          </div>
+        </div>
+        <div class="chatbot-input">
+          <input type="text" id="chatInput" placeholder="Ask me anything about your business...">
+          <button id="sendMessage">
+            <i class="fas fa-paper-plane"></i>
+          </button>
+        </div>
+        <div class="typing-indicator" id="typingIndicator">
+          <div class="typing-dots">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+          <span>AI is thinking...</span>
+        </div>
+      </div>
+    </main>
+
+    <!-- Floating Help Widget -->
+    <div class="floating-help" id="floatingHelp">
+      <i class="fas fa-question-circle"></i>
+      <div class="help-tooltip">Need help? Click to chat with AI!</div>
+    </div>
+    <!-- Location Modal -->
+    <div class="modal-overlay" id="locationModal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3>
+            <i class="fas fa-location-arrow"></i>
+            Detect Your Location
+          </h3>
+          <button class="modal-close" id="closeLocationModal">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>Allow location access to get personalized business recommendations for your area.</p>
+          <div class="location-status" id="locationStatus">
+            <i class="fas fa-spinner fa-spin"></i>
+            <span>Detecting location...</span>
+          </div>
+        </div>
+        <div class="modal-actions">
+          <button class="btn-secondary" id="cancelLocation">Cancel</button>
+          <button class="btn-primary" id="allowLocation">Allow Location</button>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

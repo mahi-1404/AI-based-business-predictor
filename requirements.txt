@@ -1,0 +1,7 @@
+Flask==2.2.2
+google-generativeai
+python-dotenv==0.21.0
+Werkzeug==2.2.2
+Flask-Cors
+gunicorn
+mangum
